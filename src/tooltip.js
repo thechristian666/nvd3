@@ -212,7 +212,8 @@ nv.models.tooltip = function() {
                     .transition()
                     .delay(hideDelay)
                     .duration(0)
-                    .style('opacity', 0);
+                    .style('opacity', 0)
+                    .style('display', 'none'); // Hide the tooltip so it doesn't create a vertical scrollbar when the chart is removed.
             } else {
                 // using tooltip.style('transform') returns values un-usable for tween
                 var old_translate = 'translate(' + lastPosition.left + 'px, ' + lastPosition.top + 'px)';
@@ -233,7 +234,8 @@ nv.models.tooltip = function() {
                         return translateInterpolator;
                     })
                     .style('-ms-transform', new_translate)
-                    .style('opacity', 1);
+                    .style('opacity', 1)
+                    .style('display', 'block');
             }
 
             lastPosition.left = left;
