@@ -343,9 +343,19 @@ nv.models.multiBar = function() {
             else {
                 barSelection
                     .attr('x', function(d,i) {
-                        return d.series * x.rangeBand() / data.length;
+                        if (d.width > 1) {
+                            return d.series * x.rangeBand() / data.length - d.width; // offset x when using custom width
+                        }
+                        
+                        return d.series * x.rangeBand() / data.length; // default width
                     })
-                    .attr('width', x.rangeBand() / data.length)
+                    .attr('width', function(d) {
+                        if (typeof d.width === "number") {
+                            return d.width * x.rangeBand() / data.length; // custom width
+                        }
+                        
+                        return x.rangeBand() / data.length; // default width
+                    })
                     .attr('y', function(d,i) {
                         return getY(d,i) < 0 ?
                             y(0) :

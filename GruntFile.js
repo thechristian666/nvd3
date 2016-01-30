@@ -141,4 +141,5 @@ module.exports = function(grunt) {
     grunt.registerTask('production', ['concat', 'uglify', 'copy', 'cssmin', 'replace']);
     grunt.registerTask('release', ['production']);
     grunt.registerTask('lint', ['jshint']);
+    grunt.registerTask('development', ['concat', 'copy']);
 };
