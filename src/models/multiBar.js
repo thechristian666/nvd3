@@ -344,7 +344,7 @@ nv.models.multiBar = function() {
                 barSelection
                     .attr('x', function(d,i) {
                         if (d.width > 1) {
-                            return d.series * x.rangeBand() / data.length - d.width; // offset x when using custom width
+                            return d.series * x.rangeBand() / data.length - d.width * x.rangeBand() / (data.length * 2); // offset x when using custom width
                         }
                         
                         return d.series * x.rangeBand() / data.length; // default width
