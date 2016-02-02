@@ -1,4 +1,4 @@
-/* nvd3 version 1.8.2-dev (https://github.com/novus/nvd3) 2016-01-31 */
+/* nvd3 version 1.8.2-dev (https://github.com/novus/nvd3) 2016-02-02 */
 (function(){
 
 // set up main nv object
@@ -1044,7 +1044,7 @@ nv.utils.calcApproxTextWidth = function (svgTextElem) {
     if (nv.utils.isFunction(svgTextElem.style) && nv.utils.isFunction(svgTextElem.text)) {
         var fontSize = parseInt(svgTextElem.style("font-size").replace("px",""), 10);
         var textLength = svgTextElem.text().length;
-        return textLength * fontSize * 0.5;
+        return nv.utils.NaNtoZero(textLength * fontSize * 0.5);
     }
     return 0;
 };
@@ -4233,11 +4233,6 @@ nv.models.discreteBarChart = function() {
                 g.select(".nv-y.nv-axis")
                     .attr("transform", "translate(" + availableWidth + ",0)");
             }	    
-
-            if (rightAlignYAxis) {
-                g.select(".nv-y.nv-axis")
-                    .attr("transform", "translate(" + availableWidth + ",0)");
-            }
 
             // Main Chart Component(s)
             discretebar
@@ -9953,6 +9948,8 @@ nv.models.parallelCoordinates = function() {
     var margin = {top: 30, right: 0, bottom: 10, left: 0}
         , width = null
         , height = null
+        , availableWidth = null
+        , availableHeight = null
         , x = d3.scale.ordinal()
         , y = {}
         , undefinedValuesLabel = "undefined values"
@@ -9984,8 +9981,8 @@ nv.models.parallelCoordinates = function() {
         renderWatch.reset();
         selection.each(function(data) {
             var container = d3.select(this);
-            var availableWidth = nv.utils.availableWidth(width, container, margin),
-                availableHeight = nv.utils.availableHeight(height, container, margin);
+            availableWidth = nv.utils.availableWidth(width, container, margin);
+            availableHeight = nv.utils.availableHeight(height, container, margin);
 
             nv.utils.initSVG(container);
 
@@ -12891,7 +12888,6 @@ nv.models.stackedArea = function() {
                 .y(function(d) {
                     if (d.display !== undefined) { return d.display.y + d.display.y0; }
                 })
-                .forceY([0])
                 .color(data.map(function(d,i) {
                     d.color = d.color || color(d, d.seriesIndex);
                     return d.color;
