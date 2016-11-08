@@ -441,7 +441,16 @@ nv.models.scatter = function() {
                     });
             points.enter().append('path')
                 .attr('class', function (d) {
-                    return 'nv-point nv-point-' + d[1];
+                    var classNames = 'nv-point nv-point-' + d[1];
+                    
+                    try {
+                        if (d[0].y === null) {
+                            classNames += ' nv-point-na';
+                        }
+                    }
+                    catch (err) {}
+                
+                    return classNames;
                 })
                 .style('fill', function (d) { return d.color })
                 .style('stroke', function (d) { return d.color })
