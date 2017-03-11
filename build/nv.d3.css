@@ -1,4 +1,4 @@
-/* nvd3 version 1.8.4-dev (https://github.com/novus/nvd3) 2016-10-02 */
+/* nvd3 version 1.8.5-dev (https://github.com/novus/nvd3) 2017-03-11 */
 .nvd3 .nv-axis {
     pointer-events:none;
     opacity: 1;
@@ -215,7 +215,7 @@
     stroke-opacity: 0;
 }
 
-.nvd3.nv-scatter.nv-single-point .nv-groups .nv-point {
+.nvd3.nv-scatter.nv-single-point .nv-groups .nv-point:not(.nv-point-na) {
     fill-opacity: .5 !important;
     stroke-opacity: .5 !important;
 }
@@ -272,11 +272,11 @@ svg.nvd3-svg {
 
 
 .nvd3 text {
-    font: normal 12px Arial, sans-serif;
+    font: normal 14px Open Sans, sans-serif;
 }
 
 .nvd3 .title {
-    font: bold 14px Arial, sans-serif;
+    font: bold 14px Open Sans, sans-serif;
 }
 
 .nvd3 .nv-background {
